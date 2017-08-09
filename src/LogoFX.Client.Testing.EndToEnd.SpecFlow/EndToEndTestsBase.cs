@@ -1,8 +1,6 @@
 ﻿using Attest.Testing.Core;
 using LogoFX.Client.Testing.Contracts;
 using LogoFX.Client.Testing.EndToEnd.FakeData;
-using LogoFX.Client.Testing.EndToEnd.White;
-using ScenarioContext = TechTalk.SpecFlow.ScenarioContext;
 
 namespace LogoFX.Client.Testing.EndToEnd.SpecFlow
 {
@@ -12,6 +10,8 @@ namespace LogoFX.Client.Testing.EndToEnd.SpecFlow
     public abstract class EndToEndTestsBase :
         Attest.Testing.SpecFlow.EndToEndTestsBase
     {
+        private readonly IApplicationFacade _applicationFacade;
+
         /// <summary>
         /// Base class for client End-To-End tests which use fake data providers.
         /// </summary>
@@ -21,9 +21,9 @@ namespace LogoFX.Client.Testing.EndToEnd.SpecFlow
             /// <summary>
             /// Initializes a new instance of the <see cref="EndToEndTestsBase.WithFakeProviders"/> class.
             /// </summary>
-            protected WithFakeProviders(ScenarioContext scenarioContext) : base(scenarioContext)
+            protected WithFakeProviders(IApplicationFacade applicationFacade) : base(applicationFacade)
             {
-                ScenarioHelper.Add(new StartApplicationService.WithFakeProviders(), typeof(IStartApplicationService));
+                ScenarioHelper.Add(new StartApplicationService.WithFakeProviders(applicationFacade), typeof(IStartApplicationService));
                 ScenarioHelper.Add(new BuilderRegistrationService(), typeof(IBuilderRegistrationService));
                 RegisterScreenObjectsCore();
             }
@@ -38,15 +38,20 @@ namespace LogoFX.Client.Testing.EndToEnd.SpecFlow
             /// <summary>
             /// Initializes a new instance of the <see cref="EndToEndTestsBase.WithRealProviders"/> class.
             /// </summary>
-            protected WithRealProviders(ScenarioContext scenarioContext) : base(scenarioContext)
+            protected WithRealProviders(IApplicationFacade applicationFacade) : base(applicationFacade)
             {
-                ScenarioHelper.Add(new StartApplicationService.WithRealProviders(), typeof(IStartApplicationService));
+                ScenarioHelper.Add(new StartApplicationService.WithRealProviders(applicationFacade), typeof(IStartApplicationService));
                 RegisterScreenObjectsCore();
             }
         }
 
-        protected EndToEndTestsBase(ScenarioContext scenarioContext) : base(scenarioContext)
+        /// <summary>
+        /// Constructs an instance of <see cref="EndToEndTestsBase" />
+        /// </summary>
+        /// <param name="applicationFacade">The application facade.</param>
+        protected EndToEndTestsBase(IApplicationFacade applicationFacade)
         {
+            _applicationFacade = applicationFacade;
         }
 
         /// <summary>
@@ -68,10 +73,7 @@ namespace LogoFX.Client.Testing.EndToEnd.SpecFlow
         protected override void OnAfterTeardown()
         {
             base.OnAfterTeardown();
-            if (ApplicationContext.Application != null)
-            {
-                ApplicationContext.Application.Dispose();
-            }
+            _applicationFacade.Stop();
             ScenarioHelper.Clear();
         }
     }
