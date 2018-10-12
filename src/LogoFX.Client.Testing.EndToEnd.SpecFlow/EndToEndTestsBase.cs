@@ -1,7 +1,7 @@
 ﻿using Attest.Testing.Contracts;
 using Attest.Testing.Core;
 using Attest.Testing.Core.FakeData;
-using LogoFX.Client.Testing.Contracts;
+using Attest.Testing.EndToEnd;
 
 namespace LogoFX.Client.Testing.EndToEnd.SpecFlow
 {
