@@ -14,9 +14,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Attest.Testing.Contracts" Version="2.0.0-rc4" />
-    <PackageReference Include="Attest.Tests.Core" Version="2.0.0-rc8" />
-    <PackageReference Include="Attest.Tests.SpecFlow" Version="2.0.0-rc8" />        
+    <PackageReference Include="Attest.Testing.Contracts" Version="2.0.0" />
+    <PackageReference Include="Attest.Tests.Core" Version="2.0.0" />
+    <PackageReference Include="Attest.Tests.SpecFlow" Version="2.0.0" />        
   </ItemGroup>
 
 </Project>

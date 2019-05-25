@@ -68,9 +68,7 @@ namespace LogoFX.Client.Testing.EndToEnd.SpecFlow
             RegisterScreenObjects();
         }
 
-        /// <summary>
-        /// Called when the teardown finishes
-        /// </summary>
+        /// <inheritdoc />
         protected override void OnAfterTeardown()
         {
             base.OnAfterTeardown();
