@@ -1,4 +1,5 @@
-﻿using Attest.Testing.Contracts;
+﻿using Attest.Fake.Data;
+using Attest.Testing.Contracts;
 using Attest.Testing.Core.FakeData;
 using Attest.Testing.EndToEnd;
 using Attest.Testing.SpecFlow;
@@ -24,11 +25,15 @@ namespace LogoFX.Client.Testing.EndToEnd.SpecFlow
             /// <summary>
             /// Initializes a new instance of the <see cref="EndToEndTestsBase.WithFakeProviders"/> class.
             /// </summary>
-            protected WithFakeProviders(IApplicationFacade applicationFacade, ScenarioHelper scenarioHelper, ScenarioContext scenarioContext) 
+            protected WithFakeProviders(
+                IApplicationFacade applicationFacade, 
+                ScenarioHelper scenarioHelper, 
+                ScenarioContext scenarioContext,
+                BuildersCollectionContext buildersCollectionContext) 
                 : base(applicationFacade, scenarioHelper, scenarioContext)
             {
-                scenarioHelper.Add(new StartApplicationService.WithFakeProviders(applicationFacade), typeof(IStartApplicationService));
-                scenarioHelper.Add(new BuilderRegistrationService(), typeof(IBuilderRegistrationService));
+                scenarioHelper.Add(new StartApplicationService.WithFakeProviders(applicationFacade, buildersCollectionContext), typeof(IStartApplicationService));
+                scenarioHelper.Add(new BuilderRegistrationService(buildersCollectionContext), typeof(IBuilderRegistrationService));
                 RegisterScreenObjectsCore();
             }
         }
