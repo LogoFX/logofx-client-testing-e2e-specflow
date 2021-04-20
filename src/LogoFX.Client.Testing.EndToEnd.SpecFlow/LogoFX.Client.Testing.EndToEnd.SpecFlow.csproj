@@ -12,8 +12,8 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Attest.Testing.Contracts" Version="2.1.0-rc2" />
-    <PackageReference Include="Attest.Tests.Core" Version="2.1.0-rc2" />
-    <PackageReference Include="Attest.Tests.SpecFlow" Version="2.1.0-rc2" />
+    <PackageReference Include="Attest.Testing.Contracts" Version="2.1.0-rc3" />
+    <PackageReference Include="Attest.Tests.Core" Version="2.1.0-rc3" />
+    <PackageReference Include="Attest.Tests.SpecFlow" Version="2.1.0-rc3" />
   </ItemGroup>
 </Project>
