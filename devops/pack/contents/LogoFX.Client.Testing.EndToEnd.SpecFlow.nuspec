@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
   <metadata>
     <id>LogoFX.Client.Testing.EndToEnd.SpecFlow</id>
-    <version>2.2.0-rc2</version>
+    <version>2.2.0-rc3</version>
     <title>LogoFX.Client.Testing.EndToEnd.SpecFlow</title>
     <authors>Gennady Verdel</authors>
     <owners>Gennady Verdel</owners>
@@ -14,9 +14,9 @@
     <summary>LogoFX Client Tests SpecFlow containing base class for SpecFlow bridge.</summary>
     <releaseNotes>Updated dependent packages</releaseNotes>
     <dependencies>
-      <dependency id="Attest.Testing.Contracts" version="2.1.1" />
-      <dependency id="Attest.Tests.Core" version="2.1.1" />
-      <dependency id="Attest.Tests.SpecFlow" version="2.1.1" />
+      <dependency id="Attest.Testing.Contracts" version="2.3.2" />
+      <dependency id="Attest.Tests.Core" version="2.3.2" />
+      <dependency id="Attest.Tests.SpecFlow" version="2.3.2" />
     </dependencies>
   </metadata>
 </package>

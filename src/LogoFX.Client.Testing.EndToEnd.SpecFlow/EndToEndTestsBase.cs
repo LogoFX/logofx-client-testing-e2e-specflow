@@ -1,8 +1,8 @@
 ﻿using Attest.Fake.Data;
 using Attest.Testing.Contracts;
-using Attest.Testing.Core.FakeData;
+using Attest.Testing.Core;
 using Attest.Testing.EndToEnd;
-using Attest.Testing.SpecFlow;
+using Attest.Testing.FakeData;
 using TechTalk.SpecFlow;
 
 namespace LogoFX.Client.Testing.EndToEnd.SpecFlow
@@ -11,10 +11,9 @@ namespace LogoFX.Client.Testing.EndToEnd.SpecFlow
     /// Base class for SpecFlow bridge.
     /// </summary>    
     public abstract class EndToEndTestsBase :
-        Attest.Testing.SpecFlow.EndToEndTestsBase
+        Attest.Testing.EndToEnd.SpecFlow.EndToEndTestsBase
     {
         private readonly IApplicationFacade _applicationFacade;
-        private readonly ScenarioHelper _scenarioHelper;
 
         /// <summary>
         /// Base class for client End-To-End tests which use fake data providers.
@@ -27,13 +26,16 @@ namespace LogoFX.Client.Testing.EndToEnd.SpecFlow
             /// </summary>
             protected WithFakeProviders(
                 IApplicationFacade applicationFacade, 
+                EndToEndScenarioDataStore endToEndScenarioDataStore,
                 ScenarioHelper scenarioHelper, 
                 ScenarioContext scenarioContext,
                 BuildersCollectionContext buildersCollectionContext) 
                 : base(applicationFacade, scenarioHelper, scenarioContext)
             {
-                scenarioHelper.Add(new StartApplicationService.WithFakeProviders(applicationFacade, buildersCollectionContext), typeof(IStartApplicationService));
-                scenarioHelper.Add(new BuilderRegistrationService(buildersCollectionContext), typeof(IBuilderRegistrationService));
+                endToEndScenarioDataStore.StartApplicationService =
+                    new StartApplicationService.WithFakeProviders(applicationFacade, buildersCollectionContext);
+                endToEndScenarioDataStore.BuilderRegistrationService =
+                    new BuilderRegistrationService(buildersCollectionContext);
                 RegisterScreenObjectsCore();
             }
         }
@@ -47,10 +49,15 @@ namespace LogoFX.Client.Testing.EndToEnd.SpecFlow
             /// <summary>
             /// Initializes a new instance of the <see cref="EndToEndTestsBase.WithRealProviders"/> class.
             /// </summary>
-            protected WithRealProviders(IApplicationFacade applicationFacade, ScenarioHelper scenarioHelper,  ScenarioContext scenarioContext) :
+            protected WithRealProviders(
+                IApplicationFacade applicationFacade, 
+                EndToEndScenarioDataStore endToEndScenarioDataStore,
+                ScenarioHelper scenarioHelper,  
+                ScenarioContext scenarioContext) :
                 base(applicationFacade, scenarioHelper, scenarioContext)
             {
-                scenarioHelper.Add(new StartApplicationService.WithRealProviders(applicationFacade), typeof(IStartApplicationService));
+                endToEndScenarioDataStore.StartApplicationService =
+                    new StartApplicationService.WithRealProviders(applicationFacade);
                 RegisterScreenObjectsCore();
             }
         }
@@ -61,11 +68,13 @@ namespace LogoFX.Client.Testing.EndToEnd.SpecFlow
         /// <param name="applicationFacade">The application facade.</param>
         /// <param name="scenarioHelper">The scenario helper.</param>
         /// <param name="scenarioContext">The scenario context.</param>
-        protected EndToEndTestsBase(IApplicationFacade applicationFacade, ScenarioHelper scenarioHelper, ScenarioContext scenarioContext)
-        :base(scenarioContext)
+        protected EndToEndTestsBase(
+            IApplicationFacade applicationFacade, 
+            ScenarioHelper scenarioHelper, 
+            ScenarioContext scenarioContext)
+            :base(scenarioContext)
         {
             _applicationFacade = applicationFacade;
-            _scenarioHelper = scenarioHelper;
         }
 
         /// <summary>
@@ -86,7 +95,7 @@ namespace LogoFX.Client.Testing.EndToEnd.SpecFlow
         {
             base.OnAfterTeardown();
             _applicationFacade.Stop();
-            _scenarioHelper.Clear();
+            //_scenarioHelper.Clear();
         }
     }
 }
