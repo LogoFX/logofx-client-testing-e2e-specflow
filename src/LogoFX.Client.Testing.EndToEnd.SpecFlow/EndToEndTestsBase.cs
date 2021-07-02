@@ -81,9 +81,7 @@ namespace LogoFX.Client.Testing.EndToEnd.SpecFlow
         /// Override this method to register the screen objects.
         /// </summary>
         protected virtual void RegisterScreenObjects()
-        {
-
-        }
+        {}
 
         internal void RegisterScreenObjectsCore()
         {
@@ -94,8 +92,7 @@ namespace LogoFX.Client.Testing.EndToEnd.SpecFlow
         protected override void OnAfterTeardown()
         {
             base.OnAfterTeardown();
-            _applicationFacade.Stop();
-            //_scenarioHelper.Clear();
+            _applicationFacade.Stop();            
         }
     }
 }
