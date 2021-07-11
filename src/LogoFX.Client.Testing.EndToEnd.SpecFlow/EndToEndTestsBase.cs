@@ -1,8 +1,7 @@
 ﻿using Attest.Fake.Data;
-using Attest.Testing.Contracts;
-using Attest.Testing.Core;
 using Attest.Testing.EndToEnd;
 using Attest.Testing.FakeData;
+using Attest.Testing.Lifecycle;
 using TechTalk.SpecFlow;
 
 namespace LogoFX.Client.Testing.EndToEnd.SpecFlow
@@ -26,11 +25,10 @@ namespace LogoFX.Client.Testing.EndToEnd.SpecFlow
             /// </summary>
             protected WithFakeProviders(
                 IApplicationFacade applicationFacade, 
-                EndToEndScenarioDataStore endToEndScenarioDataStore,
-                ScenarioHelper scenarioHelper, 
+                EndToEndScenarioDataStore endToEndScenarioDataStore, 
                 ScenarioContext scenarioContext,
                 BuildersCollectionContext buildersCollectionContext) 
-                : base(applicationFacade, scenarioHelper, scenarioContext)
+                : base(applicationFacade, scenarioContext)
             {
                 endToEndScenarioDataStore.StartApplicationService =
                     new StartApplicationService.WithFakeProviders(applicationFacade, buildersCollectionContext);
@@ -51,10 +49,9 @@ namespace LogoFX.Client.Testing.EndToEnd.SpecFlow
             /// </summary>
             protected WithRealProviders(
                 IApplicationFacade applicationFacade, 
-                EndToEndScenarioDataStore endToEndScenarioDataStore,
-                ScenarioHelper scenarioHelper,  
+                EndToEndScenarioDataStore endToEndScenarioDataStore,  
                 ScenarioContext scenarioContext) :
-                base(applicationFacade, scenarioHelper, scenarioContext)
+                base(applicationFacade, scenarioContext)
             {
                 endToEndScenarioDataStore.StartApplicationService =
                     new StartApplicationService.WithRealProviders(applicationFacade);
@@ -66,11 +63,9 @@ namespace LogoFX.Client.Testing.EndToEnd.SpecFlow
         /// Constructs an instance of <see cref="EndToEndTestsBase" />
         /// </summary>
         /// <param name="applicationFacade">The application facade.</param>
-        /// <param name="scenarioHelper">The scenario helper.</param>
         /// <param name="scenarioContext">The scenario context.</param>
         protected EndToEndTestsBase(
             IApplicationFacade applicationFacade, 
-            ScenarioHelper scenarioHelper, 
             ScenarioContext scenarioContext)
             :base(scenarioContext)
         {
