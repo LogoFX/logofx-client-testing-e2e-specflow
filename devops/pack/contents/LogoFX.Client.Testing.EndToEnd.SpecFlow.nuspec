@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
   <metadata>
     <id>LogoFX.Client.Testing.EndToEnd.SpecFlow</id>
-    <version>2.2.1</version>
+    <version>2.2.2</version>
     <title>LogoFX.Client.Testing.EndToEnd.SpecFlow</title>
     <authors>Gennady Verdel</authors>
     <owners>Gennady Verdel</owners>
@@ -14,9 +14,9 @@
     <summary>LogoFX Client Tests SpecFlow containing base class for SpecFlow bridge.</summary>
     <releaseNotes>Added support for scenario data store.</releaseNotes>
     <dependencies>
-      <dependency id="Attest.Testing.Contracts" version="2.4.0" />
-      <dependency id="Attest.Tests.Core" version="2.4.0" />
-      <dependency id="Attest.Tests.SpecFlow" version="2.4.0" />
+      <dependency id="Attest.Testing.Contracts" version="2.4.1" />
+      <dependency id="Attest.Tests.Core" version="2.4.1" />
+      <dependency id="Attest.Tests.SpecFlow" version="2.4.1" />
     </dependencies>
     <tags>framework logofx dotnet</tags>
     <repository type="Open Source" url="https://github.com/LogoFX/logofx-client-testing-e2e-specflow" />
